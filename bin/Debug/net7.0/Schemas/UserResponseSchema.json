@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "ID",
+  "title": "TITLE",
+  "required": [
+    "name"
+  ],
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string",
+      "readOnly": true
+    },
+    "name": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

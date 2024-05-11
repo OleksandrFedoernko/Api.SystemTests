@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "ID",
+  "title": "TITLE",
+  "type": "object",
+  "properties": {
+    "status": {
+      "maximum": 600,
+      "minimum": 100,
+      "type": "integer",
+      "description": "The HTTP Status code that was sent with this error message"
+    },
+    "error_code": {
+      "type": "string",
+      "description": "Internal error code"
+    },
+    "message": {
+      "type": "string",
+      "description": "Optional basic feedback message in your language",
+      "nullable": true
+    },
+    "link": {
+      "type": "string",
+      "description": "Optional hyperlink to documentation about this error",
+      "format": "uri",
+      "nullable": true
+    },
+    "developer_message": {
+      "type": "string",
+      "description": "Optional more technical error message",
+      "nullable": true
+    },
+    "validation_messages": {
+      "type": "array",
+      "description": "An optional list of validation messages",
+      "nullable": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "description": "Internal error code for this validation error."
+          },
+          "field": {
+            "type": "string",
+            "description": "The name of the field that failed validation."
+          },
+          "message": {
+            "type": "string",
+            "description": "Validation message for the field."
+          }
+        }
+      }
+    },
+    "correlation_id": {
+      "type": "string",
+      "description": "A UUID that contains a correlationId which can be used to correlate multiple errors and link this error to entries in (other) logs.",
+      "format": "uuid"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "ID",
+  "title": "TITLE",
+  "required": [
+    "bucket_id"
+  ],
+  "type": "object",
+  "properties": {
+    "bucket_id": {
+      "maxLength": 255,
+      "pattern": "^[0-9a-z\\_\\-\\@.]*$",
+      "type": "string",
+      "description": "A unique Identifier for this Bucket, which can only contain lowercase characters, numbers, and some special characters.",
+      "readOnly": true
+    },
+    "name": {
+      "maxLength": 255,
+      "minLength": 1,
+      "type": "string",
+      "description": "The (user friendly) name for this Bucket"
+    },
+    "icon": {
+      "maxLength": 255,
+      "type": "string",
+      "description": "The identifying name of a Visma Icon to be used with the Bucket.",
+      "format": "visma-icon"
+    }
+  },
+  "description": "A Bucket in the Tenant's Task Management Service. Buckets can contain tasks and can be used to group tasks together.",
+  "additionalProperties": false
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "ID",
+  "title": "TITLE",
+  "properties": {
+    "pagination": {
+      "type": "object",
+      "nullable": true,
+      "properties": {
+        "total": {
+          "minimum": 0,
+          "type": "integer",
+          "description": "The total number of `items` in the result. This property can be omitted if the total number of results is unknown.",
+          "format": "int64",
+          "readOnly": true,
+          "example": 46
+        }
+      },
+      "additionalProperties": false
+    },
+    "items": {
+      "type": "array",
+      "nullable": true,
+      "items": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "description": "The unique Id of this user",
+            "readOnly": true
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the user"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the user"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

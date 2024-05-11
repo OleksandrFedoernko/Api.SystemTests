@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "ID",
+  "title": "TITLE",
+  "required": [
+    "storage_id"
+  ],
+  "type": "object",
+  "properties": {
+    "storage_id": {
+      "maxLength": 255,
+      "pattern": "^[0-9a-z\\_\\-\\@.]*$",
+      "type": "string",
+      "readOnly": true
+    },
+    "name": {
+      "maxLength": 255,
+      "minLength": 1,
+      "type": "string"
+    },
+    "icon": {
+      "maxLength": 255,
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

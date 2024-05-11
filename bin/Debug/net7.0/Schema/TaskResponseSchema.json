@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "ID",
+  "title": "TITLE",
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "description": "Read-Only. A unique Identifier for this Id.",
+      "readOnly": true
+    },
+    "bucket_id": {
+      "type": "string",
+      "description": "Required. The Id of the Bucket that currently contains this Task. Note: A bucket with this Id doesn't have to exist yet.'\n",
+      "maxLength": 255
+    },
+    "bucket_name": {
+      "type": "string",
+      "description": "Read-Only. This property is only returned if a Bucket is registred with this name in the Task Management for this Tenant. If the `bucket_id` for this task is not registred as a Bucket in Task Management, this property will not be returned.",
+      "readOnly": true
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "An optional external reference Id for this Task.",
+      "maxLength": 255
+    },
+    "correlation_id": {
+      "type": "string",
+      "description": "An optional ID (preferably a uuid) that is used to correlate this Task with other Tasks. This can be used to find (cor)related Tasks.",
+      "maxLength": 255
+    },
+    "causation_id": {
+      "type": "string",
+      "description": "An ID (preferably a uuid) that is used to define the artifact that is responsible for the creation of this Task.",
+      "maxLength": 255
+    },
+    "origin": {
+      "type": "string",
+      "description": "The name of the Process, Service or System that is responsible for the creation of this Task.",
+      "maxLength": 255
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Read-Only. Date and time at which the task was created. Use ISO 8601 format and in UTC time.",
+      "readOnly": true
+    },
+    "created_by": {
+      "type": "string",
+      "description": "Read-Only. The name or identifier for the user that is responsible for the creation of this Task.",
+      "readOnly": true
+    },
+    "title": {
+      "type": "string",
+      "description": "The Title of this Task.",
+      "maxLength": 255
+    },
+    "description": {
+      "type": "string",
+      "description": "A textual description of the task, supports Markdown syntax.",
+      "maxLength": 2048
+    },
+    "icon": {
+      "type": "string",
+      "format": "visma-icon",
+      "description": "The identifying name of a Visma Icon to be used with the Task.",
+      "maxLength": 255
+    },
+    "related_entity": {
+      "type": "string",
+      "format": "uri-reference",
+      "description": "The URI of the Entity that is related or contextual to this Task. This property can be filled to reference a resource or Entity to which this task applies.",
+      "example": "https://<API URL>/persons/{personId}",
+      "maxLength": 1024
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "A priority for this Task. The higher the number, the higher the considered priority.",
+      "default": 50
+    },
+    "percent_complete": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of task completion. When set to 100, the task is considered completed.",
+      "default": 0
+    },
+    "possible_outcomes": {
+      "description": "An array of possible outcomes for this Task. Each outcome should be a string without any newlines.",
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "string",
+        "maxLength": 50
+      }
+    },
+    "chosen_outcome": {
+      "type": "string",
+      "description": "The chosen outcome for this Task. This must be one of the possible outcomes in this Task's possible_outcomes list.",
+      "maxLength": 50
+    },
+    "require_chosen_outcome": {
+      "type": "boolean",
+      "description": "Indicates if a `chosen_outcome` is required for completing this Task. If this is set to `true` and no `chosen_outcome` is provided when `percent_complete` is set to 100, a `400` error will be returned when trying to update/store the task.",
+      "default": false
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Identifier or the user to which this task is assigned.",
+      "maxLength": 255
+    },
+    "start_date_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time at which the task starts. Use ISO 8601 format and in UTC time. If `start_date_time` is not provided then it is set with same value as in `created_at` property. It is used for calculation of `calculated_due_date_time` when `due_date_offset` is used."
+    },
+    "due_date_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time at which the task is due. Use ISO 8601 format and in UTC time."
+    },
+    "completed_date_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time at which the task's percent_complete was set to 100. Use ISO8601 format and in UTC time.",
+      "readOnly": true
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 50,
+      "uniqueItems": true,
+      "description": "IDs of users who have reviewed the task."
+    },
+    "minimum_reviewers": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0,
+      "maximum": 50,
+      "description": "Minimum number of reviewers required to complete the task. When set to 0, the task is considered completed when `percent_complete` is set to 100. If a `minimum_reviewers` is provided, Task Management will check if the number of reviewers is equal or higher than the `minimum_reviewers` when `percent_complete` is set to 100. If this is not the case, the Task will not be considered completed and a `400` error will be returned when trying to update/store the task with a `percent_complete` of 100.",
+      "default": 0
+    },
+    "overdue": {
+      "type": "boolean",
+      "default": false,
+      "description": "Read-Only. Indicates `true` if the `due_date_time` or `calculated_due_date_time` has expired before `percent_complete` was set to 100. Indicates `false` if the `due_date_time` or `calculated_due_date_time` has not expired yet or if `percent_complete` was set to 100 before the `due_date_time` or `calculated_due_date_time`  expired.",
+      "readOnly": true
+    },
+    "due_date_offset": {
+      "type": "object",
+      "description": "Due date offset settings.",
+      "properties": {
+        "number_of_days": {
+          "type": "integer",
+          "description": "Number of days when the task is due based on start_date_time.",
+          "minimum": 0
+        },
+        "offset_type": {
+          "type": "string",
+          "description": "Type of date offset when calculating calculated_due_date_time. Use BUSINESS_DAYS when you want to consider only business (working) days.",
+          "enum": [
+            "CALENDAR_DAYS",
+            "BUSINESS_DAYS"
+          ],
+          "default": "CALENDAR_DAYS"
+        },
+        "calculated_due_date_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date and time at which the which the task is due based on the offset (number of days and offset type) and start_date_time.",
+          "readOnly": true
+        }
+      },
+      "required": [
+        "number_of_days"
+      ]
+    }
+  },
+  "required": [
+    "bucket_id"
+  ]
+}
