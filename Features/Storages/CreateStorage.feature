@@ -20,7 +20,7 @@ Scenario: Create storage inserting only name
 	Given id which will be used for creating storage is <storage_id>
 	And name which will be used for creating storage is <name>
 	And requesting_user_type is "<requesting_user_type>"
-	And header user_id is "visma_idella_pd"
+	And header user_id is "id"
 	And requesting_user_id is "testId"
 	When post storage request is sent
 	Then status code should be 201
@@ -34,7 +34,7 @@ Scenario: Create storage inserting only icon
 	Given id which will be used for creating storage is <storage_id>
 	And icon which will be used for creating storage is <icon>
 	And requesting_user_type is "<requesting_user_type>"
-	And header user_id is "visma_idella_pd"
+	And header user_id is "id"
 	And requesting_user_id is "testId"
 	When post storage request is sent
 	Then status code should be 201
@@ -79,7 +79,7 @@ Examples:
 Scenario: Send empty request body
 	Given id which will be used for creating storage is <storage_id>
 	And requesting_user_type is "BACKOFFICE_PROFESSIONAL"
-	And header user_id is "visma_idella_pd"
+	And header user_id is "id"
 	And requesting_user_id is "testId"
 	When post storage request is sent
 	Then status code should be 201
